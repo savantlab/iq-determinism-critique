@@ -12,8 +12,19 @@ from .models import (
     calculate_sem,
 )
 
+from .pdf_analysis import (
+    plot_score_pdf,
+    compare_overlapping_pdfs,
+    probability_of_reversal,
+    calculate_information_loss,
+)
+
 __all__ = [
     "simulate_test_scores",
     "calculate_confidence_interval",
     "calculate_sem",
+    "plot_score_pdf",
+    "compare_overlapping_pdfs",
+    "probability_of_reversal",
+    "calculate_information_loss",
 ]
