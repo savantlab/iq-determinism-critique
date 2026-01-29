@@ -1,6 +1,6 @@
 # IQ Determinism Critique
 
-A Python library for investigating how probabilistic test measurements are transformed into deterministic IQ scores, and the epistemological implications of this transformation.
+A Python library for investigating how probabilistic test results are transformed into deterministic IQ scores, and the epistemological implications of this transformation.
 
 ## Research Objectives
 
