@@ -1,0 +1,59 @@
+{
+  "reading_list": [
+    {
+      "id": 1,
+      "title": "The Mismeasure of Man",
+      "authors": "Stephen Jay Gould",
+      "year": 1981,
+      "url": "",
+      "tags": ["critique", "history", "reification"],
+      "notes": "Classic critique of IQ testing and biological determinism",
+      "priority": "high"
+    },
+    {
+      "id": 2,
+      "title": "Statistical Theories of Mental Test Scores",
+      "authors": "Lord, F.M. & Novick, M.R.",
+      "year": 1968,
+      "url": "",
+      "tags": ["psychometrics", "CTT", "measurement-theory"],
+      "notes": "Foundation of Classical Test Theory - shows probabilistic basis",
+      "priority": "high"
+    },
+    {
+      "id": 3,
+      "title": "Psychometric Theory",
+      "authors": "Nunnally, J.C. & Bernstein, I.H.",
+      "year": 1994,
+      "url": "",
+      "tags": ["psychometrics", "measurement-error", "reliability"],
+      "notes": "Standard reference on reliability and SEM",
+      "priority": "high"
+    },
+    {
+      "id": 4,
+      "title": "The Bell Curve Wars",
+      "authors": "Fraser, S. (Ed.)",
+      "year": 1995,
+      "url": "",
+      "tags": ["critique", "policy", "social-implications"],
+      "notes": "Collection of critical responses to Herrnstein & Murray",
+      "priority": "medium"
+    },
+    {
+      "id": 5,
+      "title": "Intelligence: Knowns and Unknowns",
+      "authors": "Neisser, U., et al. (APA Task Force)",
+      "year": 1996,
+      "url": "",
+      "tags": ["APA", "measurement-error", "limitations"],
+      "notes": "APA report acknowledging test limitations and SEM",
+      "priority": "high"
+    }
+  ],
+  "metadata": {
+    "last_updated": "2026-01-29",
+    "total_papers": 5,
+    "categories": ["critique", "psychometrics", "measurement-theory", "social-implications"]
+  }
+}
