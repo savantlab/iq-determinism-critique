@@ -1,0 +1,271 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{hyperref}
+
+\geometry{margin=1in}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}{Lemma}
+
+\title{Formal Proof: Probabilistic Random Variables Are Not Equal to Deterministic Random Variables\\
+\large{With Application to IQ Testing Reification}}
+\author{Savant Lab}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We provide a formal mathematical proof that probabilistic discrete random variables are not equal to deterministic discrete random variables. This theorem establishes the theoretical foundation for critiquing the reification of IQ scores, wherein probabilistic measurements are transformed into deterministic claims about individual intelligence.
+\end{abstract}
+
+\section{Introduction}
+
+IQ testing produces measurements with inherent uncertainty (measurement error). However, these probabilistic measurements are routinely reported as deterministic values (e.g., ``Your IQ is 115''). This paper formalizes the claim that such transformations are mathematically invalid: probabilistic and deterministic random variables are fundamentally distinct objects.
+
+\section{Definitions}
+
+\begin{definition}[Deterministic Discrete Random Variable]
+A discrete random variable $X$ is \textbf{deterministic} if there exists exactly one value $x_k$ such that:
+\begin{equation}
+P(X = x_k) = 1
+\end{equation}
+and for all $i \neq k$:
+\begin{equation}
+P(X = x_i) = 0
+\end{equation}
+\end{definition}
+
+\begin{definition}[Probabilistic Discrete Random Variable]
+A discrete random variable $Y$ is \textbf{probabilistic} (non-trivially random) if there exist at least two distinct indices $j, m$ such that:
+\begin{equation}
+0 < P(Y = y_j) < 1 \quad \text{and} \quad 0 < P(Y = y_m) < 1
+\end{equation}
+\end{definition}
+
+\begin{definition}[Shannon Entropy]
+The Shannon entropy of a discrete random variable $X$ with probability mass function $p(x)$ is:
+\begin{equation}
+H(X) = -\sum_{i} p(x_i) \log p(x_i)
+\end{equation}
+where by convention $0 \log 0 = 0$.
+\end{definition}
+
+\section{Main Theorem}
+
+\begin{theorem}[Probabilistic $\neq$ Deterministic]
+\label{thm:main}
+Let $X$ be a deterministic discrete random variable and $Y$ be a probabilistic discrete random variable. Then $X$ and $Y$ are not equal in distribution:
+\begin{equation}
+X \not\equiv Y
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+We proceed by contradiction. Assume $X \equiv Y$ (i.e., they have identical distributions).
+
+Then their probability mass functions must be equal for all outcomes:
+\begin{equation}
+P(X = x_i) = P(Y = y_i) \quad \forall i
+\end{equation}
+
+Since $X$ is deterministic (Definition 1), there exists exactly one value $x_k$ such that:
+\begin{equation}
+P(X = x_k) = 1, \quad P(X = x_i) = 0 \text{ for } i \neq k
+\end{equation}
+
+Since $Y$ is probabilistic (Definition 2), there exist at least two indices $j, m$ with:
+\begin{equation}
+0 < P(Y = y_j) < 1 \quad \text{and} \quad 0 < P(Y = y_m) < 1
+\end{equation}
+
+For $X \equiv Y$ to hold, we require:
+\begin{equation}
+P(Y = y_j) = P(X = x_j) \in \{0, 1\}
+\end{equation}
+
+However, this contradicts the requirement that $0 < P(Y = y_j) < 1$.
+
+Therefore, our assumption that $X \equiv Y$ must be false.
+
+Hence, $X \not\equiv Y$.
+\end{proof}
+
+\section{Corollaries}
+
+\begin{corollary}[Entropy Formulation]
+\label{cor:entropy}
+If $X$ is deterministic and $Y$ is probabilistic, then their entropies differ:
+\begin{equation}
+H(X) \neq H(Y)
+\end{equation}
+\end{corollary}
+
+\begin{proof}
+For deterministic $X$:
+\begin{equation}
+H(X) = -\sum_i P(X = x_i) \log P(X = x_i) = -(1 \cdot \log 1 + 0 \cdot \log 0) = 0
+\end{equation}
+
+For probabilistic $Y$ with at least two outcomes having $0 < p_i < 1$:
+\begin{align}
+H(Y) &= -\sum_i P(Y = y_i) \log P(Y = y_i) \\
+     &= -\sum_i p_i \log p_i
+\end{align}
+
+Since $0 < p_i < 1$ for at least two values of $i$, we have $-\log p_i > 0$ for those indices.
+
+Therefore:
+\begin{equation}
+H(Y) = \sum_i p_i (-\log p_i) > 0
+\end{equation}
+
+Thus $H(X) = 0 \neq H(Y) > 0$.
+
+Since entropy is a property of the probability distribution, and the entropies differ, the distributions themselves must differ.
+\end{proof}
+
+\begin{corollary}[Variance Formulation]
+If $X$ is deterministic and $Y$ is probabilistic with more than one outcome in its support, then:
+\begin{equation}
+\text{Var}(X) = 0 \neq \text{Var}(Y) > 0
+\end{equation}
+\end{corollary}
+
+\begin{proof}
+For deterministic $X$ with $P(X = x_k) = 1$:
+\begin{equation}
+\text{Var}(X) = \mathbb{E}[(X - \mathbb{E}[X])^2] = (x_k - x_k)^2 = 0
+\end{equation}
+
+For probabilistic $Y$ with at least two outcomes $y_j, y_m$ having non-zero probability and $y_j \neq y_m$:
+\begin{equation}
+\text{Var}(Y) = \sum_i p_i (y_i - \mu)^2 > 0
+\end{equation}
+where $\mu = \mathbb{E}[Y]$, since the outcomes have non-zero spread.
+\end{proof}
+
+\section{Application to IQ Testing}
+
+\subsection{Classical Test Theory}
+
+In Classical Test Theory, an observed IQ score is modeled as:
+\begin{equation}
+X_{\text{obs}} = X_{\text{true}} + \epsilon
+\end{equation}
+where $\epsilon \sim \mathcal{N}(0, \sigma_{\text{SEM}}^2)$ is measurement error with Standard Error of Measurement (SEM) $\sigma_{\text{SEM}}$.
+
+\subsection{The Reification Problem}
+
+Let $\text{Score}_{\text{obs}} = 115$ be an observed IQ score with $\sigma_{\text{SEM}} = 5$.
+
+\textbf{What the measurement represents (probabilistic):}
+
+The true score follows a distribution:
+\begin{equation}
+X_{\text{true}} \mid X_{\text{obs}} = 115 \sim \mathcal{N}(115, 25)
+\end{equation}
+
+Discretizing this distribution, we obtain a probabilistic random variable $Y_{\text{measured}}$ where multiple IQ values have non-zero probability:
+\begin{align}
+P(110 \leq X_{\text{true}} < 111) &\approx 0.12 \\
+P(114 \leq X_{\text{true}} < 115) &\approx 0.16 \\
+P(115 \leq X_{\text{true}} < 116) &\approx 0.16 \\
+&\vdots
+\end{align}
+
+By Definition 2, $Y_{\text{measured}}$ is probabilistic.
+
+\textbf{What gets reported (deterministic):}
+
+The reported IQ is a deterministic random variable $X_{\text{reported}}$:
+\begin{equation}
+P(X_{\text{reported}} = 115) = 1
+\end{equation}
+
+By Definition 1, $X_{\text{reported}}$ is deterministic.
+
+\textbf{The Mathematical Error:}
+
+By Theorem \ref{thm:main}:
+\begin{equation}
+Y_{\text{measured}} \not\equiv X_{\text{reported}}
+\end{equation}
+
+The reification process \emph{transforms} a probabilistic measurement into a deterministic claim, which is mathematically invalid. These are fundamentally different types of random variables.
+
+\subsection{Information Loss}
+
+By Corollary \ref{cor:entropy}:
+\begin{align}
+H(X_{\text{reported}}) &= 0 \text{ nats} \\
+H(Y_{\text{measured}}) &\approx 3.0 \text{ nats} \approx 4.3 \text{ bits}
+\end{align}
+
+The transformation from $Y_{\text{measured}}$ to $X_{\text{reported}}$ loses approximately \textbf{4.3 bits of information} about the uncertainty in the true score.
+
+\section{Implications}
+
+\subsection{Epistemological}
+
+IQ scores are not measurements of a fixed property, but \emph{probabilistic estimates} with inherent uncertainty. Treating them as deterministic values commits a category error, conflating:
+\begin{itemize}
+\item A probability distribution (epistemological uncertainty)
+\item A point value (ontological claim)
+\end{itemize}
+
+\subsection{Practical}
+
+This has consequences for:
+\begin{enumerate}
+\item \textbf{Classification decisions}: Cutoffs (e.g., ``gifted'' = IQ $\geq$ 130) ignore the probability that true scores fall on either side of the threshold.
+\item \textbf{Ranking}: Two individuals with scores 118 and 125 have overlapping probability distributions; their rank ordering is uncertain.
+\item \textbf{Test-retest reliability}: The same individual will produce different scores across administrations, but institutions treat the first score as ``the'' IQ.
+\end{enumerate}
+
+\section{Conclusion}
+
+We have proven that probabilistic and deterministic random variables are mathematically distinct (Theorem \ref{thm:main}). The reification of IQ scores—transforming probabilistic measurements into deterministic claims—violates this distinction. Proper reporting should include confidence intervals to represent the underlying uncertainty, as mandated by the probability distributions involved.
+
+\vspace{1cm}
+
+\noindent\textbf{Recommended Reporting Format:}
+\begin{center}
+\textit{``Observed score: 115 (95\% CI: [105, 125])"}
+\end{center}
+rather than:
+\begin{center}
+\textit{``Your IQ is 115"}
+\end{center}
+
+\begin{thebibliography}{9}
+
+\bibitem{lord1968}
+Lord, F. M., \& Novick, M. R. (1968).
+\textit{Statistical theories of mental test scores}.
+Reading, MA: Addison-Wesley.
+
+\bibitem{nunnally1994}
+Nunnally, J. C., \& Bernstein, I. H. (1994).
+\textit{Psychometric theory} (3rd ed.).
+New York: McGraw-Hill.
+
+\bibitem{shannon1948}
+Shannon, C. E. (1948).
+A mathematical theory of communication.
+\textit{Bell System Technical Journal}, 27(3), 379-423.
+
+\bibitem{gould1981}
+Gould, S. J. (1981).
+\textit{The mismeasure of man}.
+New York: W. W. Norton \& Company.
+
+\end{thebibliography}
+
+\end{document}

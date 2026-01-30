@@ -50,3 +50,14 @@ results/*.csv
 # Logs
 logs/
 *.log
+
+# LaTeX
+*.aux
+*.out
+*.log
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+*.toc
+*.bbl
+*.blg
